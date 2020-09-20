@@ -1,0 +1,18 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+.wc-ranger {
+    margin-left: 150px!important;
+}
+.wc-ranger label{
+    width: 250px !important;
+}
+
+.ui-slider-handle-disabled.ui-state-default {
+    display: none;
+}
+
+.ranger_slider_type_field {
+    display: block!important;
+}
