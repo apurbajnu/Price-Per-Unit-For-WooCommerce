@@ -23,14 +23,15 @@
 
                     },
                     defaultRangerObject = {
-                        skin: "round",
+                        skin: "square",
                         type: "single",
                         min: 0,
                         max: 0,
                         from: 0,
                         step: 1,
                         grid_snap: true,
-                        grid: false
+                        grid: false,
+
                     },
                     buildObject = function (givenObject) {
                         var marks = {};
