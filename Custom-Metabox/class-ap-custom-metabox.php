@@ -726,7 +726,7 @@ if ( ! class_exists( 'Ap_custom_Metabox' ) ):
 
                     </div>
 
-                    <input class="repeater-add-button" data-repeater-create type="button" value="Add"
+                    <input style="display: none" class="repeater-add-button" data-repeater-create type="button" value="Add"
                            data-defaut-value='<?php echo json_encode( $repeatr_default ); ?>'/>
 
 
@@ -758,7 +758,7 @@ if ( ! class_exists( 'Ap_custom_Metabox' ) ):
 					continue;
 				}
 
-				if ( ! isset( $_POST[ $field['id'] ] ) || ! wp_verify_nonce( $_POST[ "ap-" . "$field[id]" ],
+				if ( ! isset(  $_POST[ $field['id'] ] ) || ! wp_verify_nonce( $_POST[ "ap-" . "$field[id]" ],
 						basename( __FILE__ ) ) ) {
 					return $post_id;
 				}
@@ -777,7 +777,7 @@ if ( ! class_exists( 'Ap_custom_Metabox' ) ):
 				$meta_box_text_value = "";
 				/*save video meta box*/
 				if ( isset( $_POST[ $field['id'] ] ) ) {
-					$meta_box_text_value = $_POST[ $field['id'] ];
+					$meta_box_text_value = sanitize_text_field($_POST[ $field['id'] ]);
 				}
 				update_post_meta( $post_id, $field['id'], $meta_box_text_value );
 

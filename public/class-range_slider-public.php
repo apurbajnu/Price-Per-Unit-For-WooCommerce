@@ -151,7 +151,8 @@ class Range_slider_Public {
 		if ( ! wp_verify_nonce( $nonce, 'ranger-nonce' ) ) {
 			die ( __( 'You are not allowed', 'ppu' ) );
 		}
-		$product_id = $_POST['product_id'];
+		$product_id = sanitize_text_field($_POST['product_id']);
+		$product_id = (int)$product_id;
 		$product    = wc_get_product( $product_id );
 		if ( $product->is_type( 'simple' ) ) {
 			$data = $this->get_slider_range_post_meta( null, $product_id );
@@ -248,14 +249,11 @@ class Range_slider_Public {
 	function get_range_slider_value_on_variation_id() {
 
 		$nonce = $_POST['nonce'];
-
 		if ( ! wp_verify_nonce( $nonce, 'ranger-nonce' ) ) {
 			die ( __( 'You are not allowed', 'ppu' ) );
 		}
-		$vaiation_id = $_POST['variation_id'];
-		$product_id  = $_POST['product_id'];
-		$data        = $this->get_slider_range_post_meta( $vaiation_id, $product_id );
-		wp_send_json( $data );
+		wp_die ( __( 'Only Support Pro Version', 'ppu' ) );
+
 
 	}
 
@@ -615,11 +613,7 @@ class Range_slider_Public {
 		 * class.
 		 */
 		$wp_scripts = wp_scripts();
-		wp_enqueue_style( 'plugin_name-admin-ui-css',
-			'http://ajax.googleapis.com/ajax/libs/jqueryui/' . $wp_scripts->registered['jquery-ui-core']->ver . '/themes/smoothness/jquery-ui.css',
-			false,
-			$this->version,
-			false );
+
 		wp_enqueue_style( 'range_slider-css',
 			plugin_dir_url( __FILE__ ) . 'css/ion.rangeSlider.min.css',
 			array(),
@@ -654,8 +648,7 @@ class Range_slider_Public {
 		 * class.
 		 */
 		wp_enqueue_script( 'jquery-ui-core' );
-//        wp_enqueue_script('jquery-ui-slider');
-//        wp_enqueue_script('jqury-ui-touch', plugin_dir_url(__FILE__) . 'js/ui.touch.js', array('jquery'), $this->version, false);
+
 		wp_enqueue_script( 'range_slider-js',
 			plugin_dir_url( __FILE__ ) . 'js/ion.rangeSlider.js',
 			array( 'jquery' ),
@@ -691,14 +684,4 @@ class Range_slider_Public {
 
 }
 
-if ( ! function_exists( 'pri_dump' ) ) {
-	function pri_dump( $data ) {
-		echo '<pre>';
-		if ( is_object( $data ) || is_array( $data ) ) {
-			print_r( $data );
-		} else {
-			var_dump( $data );
-		}
-		echo '</pre>';
-	}
-}
+

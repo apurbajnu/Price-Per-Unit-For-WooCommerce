@@ -10,10 +10,10 @@
  *
  * @link              bestdecoders.com
  * @since             1.1.0
- * @package           Price Per Unit Basic
+ * @package           Price Per Unit For WooCommerce
  *
  * @wordpress-plugin
- * Plugin Name:       Price Per Unit Basic
+ * Plugin Name:       Price Per Unit For WooCommerce
  * Plugin URI:        bestdecoders.com
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
