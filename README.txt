@@ -1,5 +1,5 @@
 === Price Per Unit For WooCommerce ===
-Contributors: Apurba Podder
+Contributors: apurbajnu
 Donate link: https://apurba.me/donate
 Tags: Price
 Requires at least: 4.0
