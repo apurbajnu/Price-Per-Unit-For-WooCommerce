@@ -740,6 +740,24 @@ if ( ! class_exists( 'Ap_custom_Metabox' ) ):
 
 
 		/**
+		 * Recursive sanitation for an array
+		 *
+		 * @param $array
+		 *
+		 * @return mixed
+		 */
+		function recursive_sanitize_text_field($array) {
+			foreach ( $array as $key => &$value ) {
+				if ( is_array( $value ) ) {
+					$value = recursive_sanitize_text_field($value);
+				}
+				else {
+					$value = sanitize_text_field( $value );
+				}
+			}
+			return $array;
+		}
+		/**
 		 * @param $post_id
 		 * @param $post
 		 * @param $update
@@ -747,7 +765,7 @@ if ( ! class_exists( 'Ap_custom_Metabox' ) ):
 		 * @return mixed
 		 */
 		function save_custom_meta_box( $post_id, $post, $update ) {
-
+		    
 			foreach ( $this->set_meta_fields as $field ) {
 
 				$meta_post_type = array_key_exists( 'post_type',
@@ -777,8 +795,9 @@ if ( ! class_exists( 'Ap_custom_Metabox' ) ):
 				$meta_box_text_value = "";
 				/*save video meta box*/
 				if ( isset( $_POST[ $field['id'] ] ) ) {
-					$meta_box_text_value = sanitize_text_field($_POST[ $field['id'] ]);
+					$meta_box_text_value = $this->recursive_sanitize_text_field($_POST[ $field['id'] ]);
 				}
+				
 				update_post_meta( $post_id, $field['id'], $meta_box_text_value );
 
 

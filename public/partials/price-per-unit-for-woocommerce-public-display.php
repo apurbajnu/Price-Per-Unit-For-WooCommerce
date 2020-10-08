@@ -8,8 +8,8 @@
  * @link       apurba.me
  * @since      1.0.0
  *
- * @package    Range_slider
- * @subpackage Range_slider/public/partials
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/public/partials
  */
 ?>
 

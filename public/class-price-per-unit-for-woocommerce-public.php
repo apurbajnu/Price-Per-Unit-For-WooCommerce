@@ -6,8 +6,8 @@
  * @link       apurba.me
  * @since      1.0.0
  *
- * @package    Range_slider
- * @subpackage Range_slider/public
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/public
  */
 
 /**
@@ -15,11 +15,13 @@
  *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
- * @package    Range_slider
- * @subpackage Range_slider/public
+ *
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/public
  * @author     Apurba <apurba.jnu@gmail.com>
  */
-class Range_slider_Public {
+class Price_Per_Unit_For_Woocommerce_Public {
+
 
 	/**
 	 * The ID of this plugin.
@@ -100,7 +102,7 @@ class Range_slider_Public {
 			$measurement = $value['range_slider_measurement_type'];
 		}
 		if ( $status === 'active' ) {
-		    $html = __( "Minimum Price", 'ppu' );
+			$html = __( "Minimum Price", 'ppu' );
 			$html .= sprintf( get_woocommerce_price_format(),
 				'<span class="woocommerce-Price-currencySymbol">'.' ' . get_woocommerce_currency_symbol() . '</span>',
 				$price );
@@ -113,7 +115,7 @@ class Range_slider_Public {
 					$sup = '<sup>2</sup>';
 					break;
 			}
-			
+
 
 
 			$price_html = "<span class='amount'> $html $unit $sup</span>";
@@ -546,43 +548,43 @@ class Range_slider_Public {
 		ob_start();
 		?>
 
-        <div class="ap-range-slider-container" data-product_id="<?php echo $current_product_id; ?>">
+		<div class="ap-range-slider-container" data-product_id="<?php echo $current_product_id; ?>">
 
-            <input type="hidden" class="ranger_slider_total_point" name="ranger_slider_total_point"
-                   value="">
-            <input type="hidden" name="ranger_slider_unit" class="ranger_slider_unit"
-                   value="<?php echo $unit ?>">
+			<input type="hidden" class="ranger_slider_total_point" name="ranger_slider_total_point"
+			       value="">
+			<input type="hidden" name="ranger_slider_unit" class="ranger_slider_unit"
+			       value="<?php echo $unit ?>">
 
-            <input type="hidden" name="ranger_slider_measurement" class="ranger_slider_measurement"
-                   value="<?php echo $measurement_unit; ?>">
+			<input type="hidden" name="ranger_slider_measurement" class="ranger_slider_measurement"
+			       value="<?php echo $measurement_unit; ?>">
 
-            <div class="x-axis">
-                <h3 class="range-slider-title"><?php echo $atts['title'] ?></h3>
-                <input style="display:none;" type="number" class="ap-range-slider" name="example_name" value=""/>
-                <div class="ranger_slider_fields">
-                    <input type="hidden" class="ranger_slider_min_x" name="ranger_slider_min_x"
-                           value="0" maxlength="10">
-                    <input type="hidden" class="ranger_slider_max_x" name="ranger_slider_max_x"
-                           value="0" maxlength="10">
-                </div>
-            </div>
-
-
-            <div class="price-per-unit-details" style="display: none">
-                <table border="0">
-                    <tr>
-                        <td><?php echo esc_html__( 'total ',  'ppu' ) . $measurement_unit ?></td>
-                        <td class="ppu-total-area">0</td>
-                    </tr>
-                    <tr>
-                        <td><?php echo esc_html__( 'total Cost','ppu' ) ?></td>
-                        <td class="ppu-total-cost">0</td>
-                    </tr>
-                </table>
-            </div>
+			<div class="x-axis">
+				<h3 class="range-slider-title"><?php echo $atts['title'] ?></h3>
+				<input style="display:none;" type="number" class="ap-range-slider" name="example_name" value=""/>
+				<div class="ranger_slider_fields">
+					<input type="hidden" class="ranger_slider_min_x" name="ranger_slider_min_x"
+					       value="0" maxlength="10">
+					<input type="hidden" class="ranger_slider_max_x" name="ranger_slider_max_x"
+					       value="0" maxlength="10">
+				</div>
+			</div>
 
 
-        </div>
+			<div class="price-per-unit-details" style="display: none">
+				<table border="0">
+					<tr>
+						<td><?php echo esc_html__( 'total ',  'ppu' ) . $measurement_unit ?></td>
+						<td class="ppu-total-area">0</td>
+					</tr>
+					<tr>
+						<td><?php echo esc_html__( 'total Cost','ppu' ) ?></td>
+						<td class="ppu-total-cost">0</td>
+					</tr>
+				</table>
+			</div>
+
+
+		</div>
 
 
 		<?php
@@ -620,7 +622,7 @@ class Range_slider_Public {
 			$this->version,
 			'all' );
 		wp_enqueue_style( $this->plugin_name,
-			plugin_dir_url( __FILE__ ) . 'css/range_slider-public.css',
+			plugin_dir_url( __FILE__ ) . 'css/price-per-unit-for-woocommerce-public.css',
 			array(),
 			$this->version,
 			'all' );
@@ -656,7 +658,7 @@ class Range_slider_Public {
 			false );
 
 		wp_enqueue_script( $this->plugin_name,
-			plugin_dir_url( __FILE__ ) . 'js/range-slider-public.js',
+			plugin_dir_url( __FILE__ ) . 'js/price-per-unit-for-woocommerce-public.js',
 			array(
 				'jquery',
 				'jquery-ui-core',
@@ -682,6 +684,5 @@ class Range_slider_Public {
 
 	}
 
+
 }
-
-

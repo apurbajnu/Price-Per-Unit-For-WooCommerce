@@ -9,8 +9,8 @@
  * @link       apurba.me
  * @since      1.0.0
  *
- * @package    Range_slider
- * @subpackage Range_slider/includes
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Range_slider
- * @subpackage Range_slider/includes
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/includes
  * @author     Apurba <apurba.jnu@gmail.com>
  */
-class Range_slider {
+class Price_Per_Unit_For_Woocommerce {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Range_slider {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Range_slider_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Price_Per_Unit_For_Woocommerce_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -67,12 +67,12 @@ class Range_slider {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'RANGE_SLIDER_VERSION' ) ) {
-			$this->version = RANGE_SLIDER_VERSION;
+		if ( defined( 'PRICE_PER_UNIT_FOR_WOOCOMMERCE_VERSION' ) ) {
+			$this->version = PRICE_PER_UNIT_FOR_WOOCOMMERCE_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'range_slider';
+		$this->plugin_name = 'price-per-unit-for-woocommerce';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -86,10 +86,10 @@ class Range_slider {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Range_slider_Loader. Orchestrates the hooks of the plugin.
-	 * - Range_slider_i18n. Defines internationalization functionality.
-	 * - Range_slider_Admin. Defines all hooks for the admin area.
-	 * - Range_slider_Public. Defines all hooks for the public side of the site.
+	 * - Price_Per_Unit_For_Woocommerce_Loader. Orchestrates the hooks of the plugin.
+	 * - Price_Per_Unit_For_Woocommerce_i18n. Defines internationalization functionality.
+	 * - Price_Per_Unit_For_Woocommerce_Admin. Defines all hooks for the admin area.
+	 * - Price_Per_Unit_For_Woocommerce_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -103,38 +103,36 @@ class Range_slider {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-range_slider-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-price-per-unit-for-woocommerce-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-range_slider-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-price-per-unit-for-woocommerce-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-range_slider-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-price-per-unit-for-woocommerce-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-range_slider-public.php';
-
-
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-price-per-unit-for-woocommerce-public.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'Custom-Metabox/class-ap-custom-metabox.php';
 
 
-		$this->loader = new Range_slider_Loader();
+		$this->loader = new Price_Per_Unit_For_Woocommerce_Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Range_slider_i18n class in order to set the domain and to register the hook
+	 * Uses the Price_Per_Unit_For_Woocommerce_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -142,7 +140,7 @@ class Range_slider {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Range_slider_i18n();
+		$plugin_i18n = new Price_Per_Unit_For_Woocommerce_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -157,7 +155,7 @@ class Range_slider {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Range_slider_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Price_Per_Unit_For_Woocommerce_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -173,7 +171,7 @@ class Range_slider {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Range_slider_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Price_Per_Unit_For_Woocommerce_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -204,7 +202,7 @@ class Range_slider {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Range_slider_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Price_Per_Unit_For_Woocommerce_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

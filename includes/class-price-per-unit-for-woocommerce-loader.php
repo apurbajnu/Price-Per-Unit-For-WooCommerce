@@ -6,8 +6,8 @@
  * @link       apurba.me
  * @since      1.0.0
  *
- * @package    Range_slider
- * @subpackage Range_slider/includes
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Range_slider
- * @subpackage Range_slider/includes
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/includes
  * @author     Apurba <apurba.jnu@gmail.com>
  */
-class Range_slider_Loader {
+class Price_Per_Unit_For_Woocommerce_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

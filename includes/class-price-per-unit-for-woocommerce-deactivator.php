@@ -6,8 +6,8 @@
  * @link       apurba.me
  * @since      1.0.0
  *
- * @package    Range_slider
- * @subpackage Range_slider/includes
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Range_slider
- * @subpackage Range_slider/includes
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/includes
  * @author     Apurba <apurba.jnu@gmail.com>
  */
-class Range_slider_Deactivator {
+class Price_Per_Unit_For_Woocommerce_Deactivator {
 
 	/**
 	 * Short Description. (use period)

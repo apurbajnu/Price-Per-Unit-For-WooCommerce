@@ -6,8 +6,8 @@
  * @link       apurba.me
  * @since      1.0.0
  *
- * @package    Range_slider pro
- * @subpackage Range_slider/admin
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Range_slider
- * @subpackage Range_slider/admin
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/admin
  * @author     Apurba <apurba.jnu@gmail.com>
  */
-class Range_slider_Admin {
+class Price_Per_Unit_For_Woocommerce_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -236,7 +236,7 @@ class Range_slider_Admin {
 		 */
 
 		wp_enqueue_style( $this->plugin_name,
-			plugin_dir_url( __FILE__ ) . 'css/range_slider-admin.css',
+			plugin_dir_url( __FILE__ ) . 'css/price-per-unit-for-woocommerce-admin.css',
 			array(),
 			$this->version,
 			'all' );
@@ -263,7 +263,7 @@ class Range_slider_Admin {
 		 */
 
 		wp_enqueue_script( $this->plugin_name,
-			plugin_dir_url( __FILE__ ) . 'js/range_slider-admin.js',
+			plugin_dir_url( __FILE__ ) . 'js/price-per-unit-for-woocommerce-admin.js',
 			array( 'jquery' ),
 			$this->version,
 			false );

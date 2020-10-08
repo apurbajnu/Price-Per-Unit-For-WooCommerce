@@ -22,7 +22,7 @@
  * @link       apurba.me
  * @since      1.0.0
  *
- * @package    Range_slider
+ * @package    Price_Per_Unit_For_Woocommerce
  */
 
 // If uninstall not called from WordPress, then exit.

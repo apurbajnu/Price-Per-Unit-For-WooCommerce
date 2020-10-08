@@ -6,7 +6,7 @@
 
 
         function afterAjaxCompleted(data) {
- 
+
 
             $('.ap-range-slider').each(function (parentEachCalled) {
                 var $this = $(this),
@@ -175,7 +175,7 @@
 
 
 
-                
+
                 if ($this.parent().hasClass('x-axis') && response.x_dimension.min !== undefined) {
                     var obtainObject = buildObject(response.x_dimension),
                         min = response.x_dimension.min,
@@ -215,8 +215,8 @@
                         min = 0;
 
                     if (dimension == 'one_dimension') {
-                            min = x_max;
-                            max = x_max;
+                        min = x_max;
+                        max = x_max;
                     }
                     currentPoint = max;
 

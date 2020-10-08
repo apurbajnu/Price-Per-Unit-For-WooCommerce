@@ -9,8 +9,8 @@
  * @link       apurba.me
  * @since      1.0.0
  *
- * @package    Range_slider
- * @subpackage Range_slider/includes
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Range_slider
- * @subpackage Range_slider/includes
+ * @package    Price_Per_Unit_For_Woocommerce
+ * @subpackage Price_Per_Unit_For_Woocommerce/includes
  * @author     Apurba <apurba.jnu@gmail.com>
  */
-class Range_slider_i18n {
+class Price_Per_Unit_For_Woocommerce_i18n {
 
 
 	/**
@@ -35,7 +35,7 @@ class Range_slider_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'range_slider',
+			'price-per-unit-for-woocommerce',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
