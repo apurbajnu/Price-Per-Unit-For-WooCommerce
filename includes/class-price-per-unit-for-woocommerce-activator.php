@@ -30,7 +30,15 @@ class Price_Per_Unit_For_Woocommerce_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-
+		$all_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+		if(in_array('price_per_unit_pro/price-per-unit-pro-for-woocommerce.php',$all_plugins)){
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+			wp_die( __( 'Pro Version Already Active.', 'ppu' ) );
+		}
+		if (!in_array('woocommerce/woocommerce.php',$all_plugins)) {
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+			wp_die( __( 'Please Install and Activate the WooCommerce Plugin,before activating this plugin.', 'ppu' ) );
+		}
 	}
 
 }
