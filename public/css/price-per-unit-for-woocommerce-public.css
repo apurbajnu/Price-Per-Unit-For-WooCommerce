@@ -40,6 +40,8 @@
     position: absolute;
     height: 100%;
     z-index: 99;
+    opacity: 1;
+    transition: 0.4s all;
 }
 .ap-range-slider-container .load .inner-container{
     position: absolute;
@@ -81,6 +83,7 @@
     border-top-color: #794fd9;
 }
 
-.hide{
-    display: none;
+.ap-range-slider-container .hide{
+    opacity: 0;
+    z-index: -1;
 }
