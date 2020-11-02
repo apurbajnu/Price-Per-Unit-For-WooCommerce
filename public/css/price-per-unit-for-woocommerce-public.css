@@ -30,6 +30,25 @@
     top:30px;
 }
 
+.ap-range-slider-container{
+    position: relative;
+}
+
+.ap-range-slider-container .load {
+    width: 100%;
+    background: rgb(255 255 255 / 59%);
+    position: absolute;
+    height: 100%;
+    z-index: 99;
+}
+.ap-range-slider-container .load .inner-container{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
+    width: 50px;
+}
 .ap-range-slider-container .irs-bar,.ap-range-slider-container .irs-line{
     height: 10px;
 }
@@ -62,3 +81,6 @@
     border-top-color: #794fd9;
 }
 
+.hide{
+    display: none;
+}

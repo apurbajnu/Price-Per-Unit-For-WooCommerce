@@ -550,6 +550,11 @@ class Price_Per_Unit_For_Woocommerce_Public {
 
 		<div class="ap-range-slider-container" data-product_id="<?php echo $current_product_id; ?>">
 
+            <div class="load hide">
+                <div class="inner-container">
+					<?php include_once __DIR__.'/partials/svg.php'?>
+                </div>
+            </div>
 			<input type="hidden" class="ranger_slider_total_point" name="ranger_slider_total_point"
 			       value="">
 			<input type="hidden" name="ranger_slider_unit" class="ranger_slider_unit"

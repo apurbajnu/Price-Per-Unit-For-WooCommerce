@@ -343,7 +343,13 @@
 
 
         }
-
+        $.ajaxSetup({
+            url: ranger_data.url,
+            type: 'POST',
+            beforeSend: function () {
+                $('.ap-range-slider-container .load').removeClass('hide')
+            }
+        });
 
         // variable product
         jQuery('.variations_form').each(function () {
@@ -363,6 +369,7 @@
                         },
                     })
                         .done(function (response) {
+                            $('.ap-range-slider-container .load').addClass('hide')
                             afterAjaxCompleted(response)
                         })
 
@@ -376,6 +383,8 @@
 
             });
         });
+
+
 
         // simple product
         $(window).on('load', function () {
@@ -392,6 +401,7 @@
                     },
                 })
                     .done(function (response) {
+                        $('.ap-range-slider-container .load').addClass('hide')
                         afterAjaxCompleted(response)
                     }).fail(function (jqXHR, textStatus, errorThrown) {
                     console.log('Ajax Failed');
