@@ -59,18 +59,39 @@ class Price_Per_Unit_For_Woocommerce_Admin {
 
 		$this->metafield = new Ap_custom_Metabox();
 		$this->metafield->set_meta_fields( $this->ranger_meta_field_settings() );
+		add_action('admin_menu',array($this,'ppu_settings_page'));
 		add_filter( 'range_meta_boxes_pro_meta_info_ranger_slider_address',
-			function ( $option, $post ) {
-				$product    = wc_get_product( $post->ID );
-				$childs     = $product->get_children();
-				$childs     = array_combine( $childs, $childs );
-				$childs [0] = __( 'No Variation', 'ppu' );
-
-				return $childs;
-			},
+			array($this,'ranger_address_field_settings'),
 			10,
 			2 );
 
+	}
+
+	public function ranger_address_field_settings($option, $post){
+			$product    = wc_get_product( $post->ID );
+			$childs     = $product->get_children();
+			$childs     = array_combine( $childs, $childs );
+			$childs [0] = __( 'No Variation', 'ppu' );
+			return $childs;
+
+	}
+
+	public function ppu_settings_page() {
+		add_menu_page( __( 'Price Per Unit', 'ppu' ),
+			__( 'Price Per Unit', 'ppu' ),
+			'manage_options',
+			'bds_plugin',
+			array(
+				$this,
+				'bds_plugin_page_cb',
+			),
+			'dashicons-share-alt',
+			99 );
+	}
+
+
+	public function bds_plugin_page_cb() {
+		require_once (__DIR__.'/partials/price-per-unit-for-woocommerce-admin-display.php');
 	}
 
 
