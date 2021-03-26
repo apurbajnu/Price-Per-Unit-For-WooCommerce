@@ -60,13 +60,15 @@ e.g.
 
 == Frequently Asked Questions ==
 
-= Is there any Plugin Settings Page. =
-
-No, Plugin Settings page is needed. You can Easily mange the plugin from product page.
-
 = Dose This Plugin work with Simple Product. =
 
-Yes, it is.
+Yes, it is. But Only Pro Version Support Variable Product
+
+
+
+= How will I set the plugin . =
+
+This version hasn't any option page.It is fully custom meta box dependent plugin.
 
 
 == Screenshots ==

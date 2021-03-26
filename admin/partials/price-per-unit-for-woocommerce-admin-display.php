@@ -104,7 +104,7 @@
                 <div class="card">
                     <h3>Your Feedback Motivate us</h3>
                     <p>If you are happy with our plugin, Please let us know with your valuable feedback.It won't take more than 2 minute. </p>
-                    <a href="#" class="button">Rate Us</a>
+                    <a href="https://wordpress.org/support/plugin/price-per-unit-for-woocommerce/reviews/#new-post" class="button">Rate Us</a>
 
                 </div>
             </div>
