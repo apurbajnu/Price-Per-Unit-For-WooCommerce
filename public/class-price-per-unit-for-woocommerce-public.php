@@ -177,6 +177,7 @@ class Price_Per_Unit_For_Woocommerce_Public {
 			$unit        = $value['range_slider_unit'];
 			$status      = $value['ranger_slider_status'];
 			$measurement = $value['range_slider_measurement_type'];
+			$view        = !array_key_exists('range_slider_view',(array)$value) && is_null($value['range_slider_view'])?'slider':$value['range_slider_view'];
 			if ( array_key_exists( 'meta_info', $value ) ) {
 				$value        = $value['meta_info'];
 				$encoded_val  = json_decode( $value,
@@ -233,6 +234,7 @@ class Price_Per_Unit_For_Woocommerce_Public {
 				'primitive_price' => $primitive_price,
 				'measurement'     => $measurement,
 				'status'          => $status,
+                'view'            => $view, //slider,numeric
 				'woo_price'       => '<span class="ppu-price-format">' . $woo_price_format . '</span>',
 			];
 
@@ -563,16 +565,39 @@ class Price_Per_Unit_For_Woocommerce_Public {
 			<input type="hidden" name="ranger_slider_measurement" class="ranger_slider_measurement"
 			       value="<?php echo $measurement_unit; ?>">
 
-			<div class="x-axis">
-				<h3 class="range-slider-title"><?php echo $atts['title'] ?></h3>
-				<input style="display:none;" type="number" class="ap-range-slider" name="example_name" value=""/>
-				<div class="ranger_slider_fields">
-					<input type="hidden" class="ranger_slider_min_x" name="ranger_slider_min_x"
-					       value="0" maxlength="10">
-					<input type="hidden" class="ranger_slider_max_x" name="ranger_slider_max_x"
-					       value="0" maxlength="10">
-				</div>
-			</div>
+<!--			<div class="x-axis">-->
+<!--				<h3 class="range-slider-title">--><?php //echo $atts['title'] ?><!--</h3>-->
+<!--				<input style="display:none;" type="number" class="ap-range-slider" name="example_name" value=""/>-->
+<!--				<div class="ranger_slider_fields">-->
+<!--					<input type="hidden" class="ranger_slider_min_x" name="ranger_slider_min_x"-->
+<!--					       value="0" maxlength="10">-->
+<!--					<input type="hidden" class="ranger_slider_max_x" name="ranger_slider_max_x"-->
+<!--					       value="0" maxlength="10">-->
+<!--				</div>-->
+<!--			</div>-->
+
+
+            <div class="x-axis">
+                <div class="input-view cod">
+                    <div class="title">
+                        <h3 class="range-slider-title"><?php echo $atts['title'] ?></h3>
+                    </div>
+                    <div class="controller">
+                        <p style="display: none" class="notice">Only Fixed Value</p>
+                        <input  type="number" class="ap-range-slider " name="ppu_value" value=""/>
+                    </div>
+                    <div class="unit">
+						<?php echo $unit ?>
+                    </div>
+                </div>
+
+                <div class="ranger_slider_fields">
+                    <input type="hidden" class="ranger_slider_min_x" name="ranger_slider_min_x"
+                           value="0" maxlength="10">
+                    <input type="hidden" class="ranger_slider_max_x" name="ranger_slider_max_x"
+                           value="0" maxlength="10">
+                </div>
+            </div>
 
 
 			<div class="price-per-unit-details" style="display: none">

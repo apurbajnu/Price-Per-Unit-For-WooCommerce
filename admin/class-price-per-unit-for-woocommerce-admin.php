@@ -144,6 +144,14 @@ class Price_Per_Unit_For_Woocommerce_Admin {
 						'value'       => '',
 					),
 
+					array(
+						'name'         => 'range_slider_view',
+						'type'         => 'select',
+						'label'        => 'Slider View',
+						'input_option' => [ 'slider' => 'Slider','numeric' => 'Numeric' ],
+
+					),
+
 
 					array(
 						'name'         => 'meta_info',

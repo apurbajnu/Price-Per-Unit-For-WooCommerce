@@ -70,6 +70,7 @@
                         return object;
 
                     },
+                    currentValue = $this.val(),
                     container = ranger_data.container;
 
                 $('.ranger_slider_total_point').val(totalPoint);
@@ -102,6 +103,7 @@
 
 
                 var response = data['range_slider'];
+                var view = response.view;
                 var dimension = response.dimension,
                     primitive_price = 0; //parseFloat(response.primitive_price);
 
@@ -176,14 +178,22 @@
 
 
 
-                if ($this.parent().hasClass('x-axis') && response.x_dimension.min !== undefined) {
+                if ($this.parents().hasClass('x-axis') && response.x_dimension.min !== undefined) {
                     var obtainObject = buildObject(response.x_dimension),
                         min = response.x_dimension.min,
                         max = response.x_dimension.max;
                     $('.x-axis .range-slider-title').text(response.x_dimension.title)
                     $('.x-axis').css('height','100px');
                     //initialize
-                    $this.ionRangeSlider(obtainObject);
+                    if (view === 'slider') {
+                        $this.ionRangeSlider(obtainObject)
+                    }
+                    else {
+                        $('.ap-range-slider-container').addClass('on-input-view')
+                        $this.closest('.input-view').removeClass('cod')
+                        let minVal = !isNaN(min)?min:0
+                        $this.val(minVal)
+                    }
 
                 }
 
@@ -298,12 +308,53 @@
 
                 }
 
+                function setValue(params) {
+                    let value = parseFloat(params.value),
+                        min = parseFloat(params.min),
+                        max = parseFloat(params.max),
+                        step = parseFloat(params.step),
+                        prevValue = params.prevValue,
+                        event = params.eventType,
+                        move = prevValue === undefined || value > prevValue || event == 'keyup' ? 'inc' : 'dec';
 
-                // $this.on('start',function () {
-                //     addMarks(data.slider);
-                // })
 
-                $this.on('change', function () {
+                    // calculate value for not restricted value
+                    if (!isNaN(value)) {
+                            if (min > value) {
+                                value = min
+                            }
+
+                            if (!isNaN(step) && [min, max].indexOf(value) !== 0) {
+                                if(move == 'inc'){
+                                    while (value % step !== 0) {
+                                        value = value + 1
+                                    }
+                                }else{
+                                    while (value % step !== 0) {
+                                        value = value - 1
+                                    }
+                                }
+
+
+                            }
+                            if (!isNaN(max) && value > max) {
+                                value = max
+                            }
+                            if (value < 0) {
+                                value = 0;
+                            }
+
+
+                    }else{
+                        value = 0;
+                    }
+
+                    return value;
+
+                }
+
+
+                function calculate (e) {
 
                     // var html = '';
                     // html += '<span class="mark" style="left: ' + 10 + '%"></span>';
@@ -317,9 +368,26 @@
                             to = $inp.data("from")        // input data-to attribute
                         to = (to === undefined) ? $this.val() : to; // for input box when slider not initialized
 
-                        if ($this.parent().hasClass('x-axis')) {
+                        if ($this.parents().hasClass('x-axis')) {
+                            let setValueOption = {
+                                'value': to,
+                                'min': response.x_dimension.min,
+                                'max': response.x_dimension.max,
+                                'step': response.x_dimension.step,
+                                'prevValue': currentValue,
+                                'eventType': e.type
+                            }
+                            if (view === 'numeric') {
+                                to = setValue(setValueOption)
+                                currentValue = to;
+                                //nan value backup
+                                // if (isNaN(to)) {
+                                //     to = !isNaN(min) ? min : 0
+                                // }
+                            }
                             $('.ranger_slider_fields .ranger_slider_min_x').val(from)
                             $('.ranger_slider_fields .ranger_slider_max_x').val(to)
+                            $this.val(to)
                         }
 
                         // console.log(dimension);
@@ -334,10 +402,25 @@
                         $('.ranger_slider_total_point').val(totalPoint);
 
                     };
+
+                    if (view === 'slider'){
+                        // wait for the ui.handle to set its position
+                        setTimeout(priceUpdate, 500); //after complete moving
+                        // return;
+                    }else{
+                        priceUpdate()
+                    }
                     // wait for the ui.handle to set its position
-                    setTimeout(priceUpdate, 500); //after complete moving
+                    //setTimeout(priceUpdate, 500); //after complete moving
                     // return;
-                });
+                }
+                calculate({'type':'keyup'})
+
+                // $this.on('start',function () {
+                //     addMarks(data.slider);
+                // })
+
+                $this.on('change keyup', calculate);
 
             })
 

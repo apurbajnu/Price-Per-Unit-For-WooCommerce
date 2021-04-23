@@ -87,3 +87,52 @@
     opacity: 0;
     z-index: -1;
 }
+
+.ap-range-slider-container .cod .unit,  .ap-range-slider-container .cod .controller input {
+    opacity: 0;
+    z-index: -1;
+}
+
+.ap-range-slider-container .input-view:not(.cod) {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    width: 90%;
+}
+
+.ap-range-slider-container .title {
+    flex-basis: 20%;
+    padding-top: 15px;
+}
+
+.ap-range-slider-container .input-view:not(.cod)  .controller {
+    flex-basis: 50%;
+    padding: 0 20px;
+}
+
+.ap-range-slider-container  .controller input {
+    width: 100% !important;
+    height: 50px;
+    border: 1px solid #f0eaea;
+    background: #eaeaea1f;
+}
+
+.ap-range-slider-container  .unit {
+    padding-top: 20px;
+    flex-basis: 20%;
+}
+
+.on-input-view {
+    border: 1px dashed #ea7826;
+    padding: 30px 15px;
+    margin: 30px 0;
+}
+
+.ap-range-slider-container p.notice {
+    font-size: 14px;
+    font-weight: 500;
+    color: #c71313;
+    position: absolute;
+    top: 0;
+    left: 30%;
+}
