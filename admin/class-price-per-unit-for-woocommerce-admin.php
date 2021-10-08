@@ -116,9 +116,9 @@ class Price_Per_Unit_For_Woocommerce_Admin {
 						'label'        => __( 'Status', 'ppu' ),
 						'class'        => 'ranger_slider_status',
 						'type'         => 'select',
-						'input_option' => [
-							'active'   => __( 'Active', 'ppu' ),
+						'input_option' => [						
 							'inactive' => __( 'Inactive', 'ppu' ),
+							'active'   => __( 'Active', 'ppu' ),
 						],
 
 					),
