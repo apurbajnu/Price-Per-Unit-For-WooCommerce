@@ -354,11 +354,11 @@
                 }
 
 
-                function calculate (e) {
+                function calculate (e,$selector = $this) {
 
                     // var html = '';
                     // html += '<span class="mark" style="left: ' + 10 + '%"></span>';
-                    // $this.append(html)
+                    // $selector.append(html)
 
                     var $inp = $(this),
                         updatePrice = 0;
@@ -366,9 +366,9 @@
                     var priceUpdate = function () {
                         var from = min,  // input data-from attribute
                             to = $inp.data("from")        // input data-to attribute
-                        to = (to === undefined) ? $this.val() : to; // for input box when slider not initialized
+                        to = (to === undefined) ? $selector.val() : to; // for input box when slider not initialized
 
-                        if ($this.parents().hasClass('x-axis')) {
+                        if ($selector.parents().hasClass('x-axis')) {
                             let setValueOption = {
                                 'value': to,
                                 'min': response.x_dimension.min,
@@ -387,7 +387,7 @@
                             }
                             $('.ranger_slider_fields .ranger_slider_min_x').val(from)
                             $('.ranger_slider_fields .ranger_slider_max_x').val(to)
-                            $this.val(to)
+                            $selector.val(to)
                         }
 
                         // console.log(dimension);
@@ -421,6 +421,26 @@
                 // })
 
                 $this.on('change keyup', calculate);
+                $(".ppu-increment").on("click", function (e) {
+                    e.preventDefault();
+                    let $input = $(this).siblings("input");
+                    let $currentInput;
+                    if ($input[0] == $this[0]) {
+                      $currentInput = $this;
+                      $this.val(Number($this.val()) + 1);
+                      calculate({ type: "change" }, $currentInput);
+                    }
+                  });
+                  $(".ppu-decrement").on("click", function (e) {
+                    e.preventDefault();
+                    let $input = $(this).siblings("input");
+                    let $currentInput;
+                    if ($input[0] == $this[0]) {
+                      $currentInput = $this;
+                      $this.val(Number($this.val()) - 1);
+                      calculate({ type: "change" }, $currentInput);
+                    }
+                  });
 
             })
 
