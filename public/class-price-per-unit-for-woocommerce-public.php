@@ -111,7 +111,7 @@ class Price_Per_Unit_For_Woocommerce_Public
             $measurement = $value['range_slider_measurement_type'];
         }
         if ($status === 'active') {
-            $html = __('Minimum Price', 'ppu');
+            $html = __('Minimum Price', 'price-per-unit-for-woocommerce');
             $html .= sprintf(
                 get_woocommerce_price_format(),
                 '<span class="woocommerce-Price-currencySymbol">' . ' ' . get_woocommerce_currency_symbol() . '</span>',
@@ -140,7 +140,7 @@ class Price_Per_Unit_For_Woocommerce_Public
     {
         // Adds the new tab
         $tabs['price_per_unit_tab'] = [
-            'title' => __('Price Information', 'ppu'),
+            'title' => __('Price Information', 'price-per-unit-for-woocommerce'),
             'priority' => 50,
             'callback' => [$this, 'price_info_build'],
         ];
@@ -159,7 +159,7 @@ class Price_Per_Unit_For_Woocommerce_Public
         $nonce = $_POST['nonce'];
 
         if (!wp_verify_nonce($nonce, 'ranger-nonce')) {
-            die(__('You are not allowed', 'ppu'));
+            die(__('You are not allowed', 'price-per-unit-for-woocommerce'));
         }
         $product_id = sanitize_text_field($_POST['product_id']);
         $product_id = (int)$product_id;
@@ -168,7 +168,7 @@ class Price_Per_Unit_For_Woocommerce_Public
             $data = $this->get_slider_range_post_meta(null, $product_id);
             wp_send_json($data);
         }
-        wp_die(__('Slider Not Available', 'ppu'));
+        wp_die(__('Slider Not Available', 'price-per-unit-for-woocommerce'));
     }
 
     public function get_slider_range_post_meta($id, $product_id = null)
@@ -255,9 +255,9 @@ class Price_Per_Unit_For_Woocommerce_Public
     {
         $nonce = $_POST['nonce'];
         if (!wp_verify_nonce($nonce, 'ranger-nonce')) {
-            die(__('You are not allowed', 'ppu'));
+            die(__('You are not allowed', 'price-per-unit-for-woocommerce'));
         }
-        wp_die(__('Only Support Pro Version', 'ppu'));
+        wp_die(__('Only Support Pro Version', 'price-per-unit-for-woocommerce'));
     }
 
     public function ranger_slider_point_display($item_data, $cart_item)
@@ -290,7 +290,7 @@ class Price_Per_Unit_For_Woocommerce_Public
 
         if (!empty($cart_item['ranger_slider_total_point'])) {
             $item_data[] = [
-                'key' => __('Total', 'ppu') . ' ' . $measurement,
+                'key' => __('Total', 'price-per-unit-for-woocommerce') . ' ' . $measurement,
                 'value' => wc_clean($cart_item['ranger_slider_total_point']) . $unit,
                 'display' => '',
             ];
@@ -432,16 +432,16 @@ class Price_Per_Unit_For_Woocommerce_Public
                 $measurement_unit = '';
                 switch ($data['measurement']) {
                     case 'v':
-                        $measurement_unit = __('Volume', 'ppu');
+                        $measurement_unit = __('Volume', 'price-per-unit-for-woocommerce');
                         break;
                     case 'a':
-                        $measurement_unit = __('Area', 'ppu');
+                        $measurement_unit = __('Area', 'price-per-unit-for-woocommerce');
                         break;
                     case 'l':
-                        $measurement_unit = __('Length', 'ppu');
+                        $measurement_unit = __('Length', 'price-per-unit-for-woocommerce');
                         break;
                     case 'w':
-                        $measurement_unit = __('Weight', 'ppu');
+                        $measurement_unit = __('Weight', 'price-per-unit-for-woocommerce');
                         break;
                 }
                 $default_unit = $data['unit'];
@@ -514,16 +514,16 @@ class Price_Per_Unit_For_Woocommerce_Public
 
         switch ($measurement) {
             case 'v':
-                $measurement_unit = __('Volume', 'ppu');
+                $measurement_unit = __('Volume', 'price-per-unit-for-woocommerce');
                 break;
             case 'a':
-                $measurement_unit = __('Area', 'ppu');
+                $measurement_unit = __('Area', 'price-per-unit-for-woocommerce');
                 break;
             case 'l':
-                $measurement_unit = __('Length', 'ppu');
+                $measurement_unit = __('Length', 'price-per-unit-for-woocommerce');
                 break;
             case 'w':
-                $measurement_unit = __('Weight', 'ppu');
+                $measurement_unit = __('Weight', 'price-per-unit-for-woocommerce');
                 break;
         }
 
@@ -564,7 +564,7 @@ class Price_Per_Unit_For_Woocommerce_Public
 				</h3>
 			</div>
 			<div class="controller">
-				<p style="display: none" class="notice"><?php echo esc_html__('Only Fixed Value', 'ppu') ?>
+				<p style="display: none" class="notice"><?php echo esc_html__('Only Fixed Value', 'price-per-unit-for-woocommerce') ?>
 				</p>
 				<button class=" input-changing-btn ppu-increment">&#9650;</button>
 				<input type="number" class="ap-range-slider" name="ppu_value" value="" />
@@ -585,12 +585,12 @@ class Price_Per_Unit_For_Woocommerce_Public
 	<div class="price-per-unit-details" style="display: none">
 		<table border="0">
 			<tr>
-				<td><?php echo esc_html__('Total ', 'ppu') . $measurement_unit ?>
+				<td><?php echo esc_html__('Total ', 'price-per-unit-for-woocommerce') . $measurement_unit ?>
 				</td>
 				<td class="ppu-total-area">0</td>
 			</tr>
 			<tr>
-				<td><?php echo esc_html__('Total Cost', 'ppu') ?>
+				<td><?php echo esc_html__('Total Cost', 'price-per-unit-for-woocommerce') ?>
 				</td>
 				<td class="ppu-total-cost">0</td>
 			</tr>
@@ -691,9 +691,9 @@ class Price_Per_Unit_For_Woocommerce_Public
             'ranger_data',
             [
 
-                'unit' => esc_html__('Unit', 'ppu'),
-                'price' => esc_html__('Price', 'ppu'),
-                'min_price' => esc_html__('Minimum Price', 'ppu'),
+                'unit' => esc_html__('Unit', 'price-per-unit-for-woocommerce'),
+                'price' => esc_html__('Price', 'price-per-unit-for-woocommerce'),
+                'min_price' => esc_html__('Minimum Price', 'price-per-unit-for-woocommerce'),
                 'container' => '.woocommerce-Price-amount',
                 'url' => admin_url('admin-ajax.php'),
                 'nonce' => wp_create_nonce('ranger-nonce'),
