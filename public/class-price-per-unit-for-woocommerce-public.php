@@ -115,7 +115,7 @@ class Price_Per_Unit_For_Woocommerce_Public
             $html .= sprintf(
                 get_woocommerce_price_format(),
                 '<span class="woocommerce-Price-currencySymbol">' . ' ' . get_woocommerce_currency_symbol() . '</span>',
-                $price
+                wc_price($price) 
             );
             $sup = '';
             switch ($measurement) {
@@ -168,7 +168,7 @@ class Price_Per_Unit_For_Woocommerce_Public
             $data = $this->get_slider_range_post_meta(null, $product_id);
             wp_send_json($data);
         }
-        wp_die(__('Slider Not Available', 'price-per-unit-for-woocommerce'));
+        wp_die('Slider Not Available');
     }
 
     public function get_slider_range_post_meta($id, $product_id = null)
@@ -338,7 +338,7 @@ class Price_Per_Unit_For_Woocommerce_Public
                 $cart_item['product_id']
             );
             if (!empty($set_price)) {
-                $cart_item['data']->set_price(number_format((float) $set_price, 2, '.', '')); // Set the sale price
+                $cart_item['data']->set_price($set_price); // Set the sale price
             }
         }
     }
@@ -530,72 +530,72 @@ class Price_Per_Unit_For_Woocommerce_Public
         ob_start(); ?>
 
 <div class="ap-range-slider-container"
-	data-product_id="<?php echo $current_product_id; ?>">
+    data-product_id="<?php echo $current_product_id; ?>">
 
-	<div class="load hide">
-		<div class="inner-container">
-			<?php include_once __DIR__ . '/partials/svg.php'?>
-		</div>
-	</div>
-	<input type="hidden" class="ranger_slider_total_point" name="ranger_slider_total_point" value="">
-	<input type="hidden" name="ranger_slider_unit" class="ranger_slider_unit"
-		value="<?php echo $unit ?>">
+    <div class="load hide">
+        <div class="inner-container">
+            <?php include_once __DIR__ . '/partials/svg.php'?>
+        </div>
+    </div>
+    <input type="hidden" class="ranger_slider_total_point" name="ranger_slider_total_point" value="">
+    <input type="hidden" name="ranger_slider_unit" class="ranger_slider_unit"
+        value="<?php echo $unit ?>">
 
-	<input type="hidden" name="ranger_slider_measurement" class="ranger_slider_measurement"
-		value="<?php echo $measurement_unit; ?>">
+    <input type="hidden" name="ranger_slider_measurement" class="ranger_slider_measurement"
+        value="<?php echo $measurement_unit; ?>">
 
-	<!--			<div class="x-axis">-->
-	<!--				<h3 class="range-slider-title">--><?php //echo $atts['title']?>
-	<!--</h3>-->
-	<!--				<input style="display:none;" type="number" class="ap-range-slider" name="example_name" value=""/>-->
-	<!--				<div class="ranger_slider_fields">-->
-	<!--					<input type="hidden" class="ranger_slider_min_x" name="ranger_slider_min_x"-->
-	<!--					       value="0" maxlength="10">-->
-	<!--					<input type="hidden" class="ranger_slider_max_x" name="ranger_slider_max_x"-->
-	<!--					       value="0" maxlength="10">-->
-	<!--				</div>-->
-	<!--			</div>-->
-
-
-	<div class="x-axis">
-		<div class="input-view cod">
-			<div class="title">
-				<h3 class="range-slider-title"><?php echo $atts['title'] ?>
-				</h3>
-			</div>
-			<div class="controller">
-				<p style="display: none" class="notice"><?php echo esc_html__('Only Fixed Value', 'price-per-unit-for-woocommerce') ?>
-				</p>
-				<button class=" input-changing-btn ppu-increment">&#9650;</button>
-				<input type="number" class="ap-range-slider" name="ppu_value" value="" />
-				<button class=" input-changing-btn ppu-decrement">&#9660;</button>
-			</div>
-			<div class="unit">
-				<?php echo $unit ?>
-			</div>
-		</div>
-
-		<div class="ranger_slider_fields">
-			<input type="hidden" class="ranger_slider_min_x" name="ranger_slider_min_x" value="0" maxlength="10">
-			<input type="hidden" class="ranger_slider_max_x" name="ranger_slider_max_x" value="0" maxlength="10">
-		</div>
-	</div>
+    <!--			<div class="x-axis">-->
+    <!--				<h3 class="range-slider-title">--><?php //echo $atts['title']?>
+    <!--</h3>-->
+    <!--				<input style="display:none;" type="number" class="ap-range-slider" name="example_name" value=""/>-->
+    <!--				<div class="ranger_slider_fields">-->
+    <!--					<input type="hidden" class="ranger_slider_min_x" name="ranger_slider_min_x"-->
+    <!--					       value="0" maxlength="10">-->
+    <!--					<input type="hidden" class="ranger_slider_max_x" name="ranger_slider_max_x"-->
+    <!--					       value="0" maxlength="10">-->
+    <!--				</div>-->
+    <!--			</div>-->
 
 
-	<div class="price-per-unit-details" style="display: none">
-		<table border="0">
-			<tr>
-				<td><?php echo esc_html__('Total ', 'price-per-unit-for-woocommerce') . $measurement_unit ?>
-				</td>
-				<td class="ppu-total-area">0</td>
-			</tr>
-			<tr>
-				<td><?php echo esc_html__('Total Cost', 'price-per-unit-for-woocommerce') ?>
-				</td>
-				<td class="ppu-total-cost">0</td>
-			</tr>
-		</table>
-	</div>
+    <div class="x-axis">
+        <div class="input-view cod">
+            <div class="title">
+                <h3 class="range-slider-title"><?php echo $atts['title'] ?>
+                </h3>
+            </div>
+            <div class="controller">
+                <p style="display: none" class="notice"><?php echo esc_html__('Only Fixed Value', 'price-per-unit-for-woocommerce') ?>
+                </p>
+                <button class=" input-changing-btn ppu-increment">&#9650;</button>
+                <input type="number" step="any" class="ap-range-slider" name="ppu_value" value="" />
+                <button class=" input-changing-btn ppu-decrement">&#9660;</button>
+            </div>
+            <div class="unit">
+                <?php echo $unit ?>
+            </div>
+        </div>
+
+        <div class="ranger_slider_fields">
+            <input type="hidden" class="ranger_slider_min_x" name="ranger_slider_min_x" value="0" maxlength="10">
+            <input type="hidden" class="ranger_slider_max_x" name="ranger_slider_max_x" value="0" maxlength="10">
+        </div>
+    </div>
+
+
+    <div class="price-per-unit-details" style="display: none">
+        <table border="0">
+            <tr>
+                <td><?php echo esc_html__('Total ', 'price-per-unit-for-woocommerce') . $measurement_unit ?>
+                </td>
+                <td class="ppu-total-area">0</td>
+            </tr>
+            <tr>
+                <td><?php echo esc_html__('Total Cost', 'price-per-unit-for-woocommerce') ?>
+                </td>
+                <td class="ppu-total-cost">0</td>
+            </tr>
+        </table>
+    </div>
 
 
 </div>
@@ -661,6 +661,7 @@ class Price_Per_Unit_For_Woocommerce_Public
          * between the defined hooks and the functions defined in this
          * class.
          */
+
         wp_enqueue_script('jquery-ui-core');
 
         wp_enqueue_script(
@@ -697,6 +698,11 @@ class Price_Per_Unit_For_Woocommerce_Public
                 'container' => '.woocommerce-Price-amount',
                 'url' => admin_url('admin-ajax.php'),
                 'nonce' => wp_create_nonce('ranger-nonce'),
+                'WCCurrencyOptions' => [
+                    'thousandSeparator' => wc_get_price_thousand_separator(),
+                    'decimalSeparator' => wc_get_price_decimal_separator(),
+                    'decimalCount' => wc_get_price_decimals(),
+                ]
             ]
         );
     }

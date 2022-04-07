@@ -16,7 +16,7 @@
  * Plugin Name:       Price Per Unit
  * Plugin URI:        bestdecoders.com
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.3.0
+ * Version:           1.3.1
  * Author:            Apurba
  * Author URI:        apurba.me gs
  * License:           GPL-2.0+

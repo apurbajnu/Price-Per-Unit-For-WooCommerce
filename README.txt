@@ -65,6 +65,8 @@ Fix Mobile touch issue for the Numeric view
 By default, active status changed to deactivate
 Translatable.
 Fix small issues.
+1.3.1
+Fixed tranlation related issue
 
 == Installation ==
 
