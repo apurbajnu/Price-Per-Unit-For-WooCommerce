@@ -749,7 +749,7 @@ if ( ! class_exists( 'Ap_custom_Metabox' ) ):
 		function recursive_sanitize_text_field($array) {
 			foreach ( $array as $key => &$value ) {
 				if ( is_array( $value ) ) {
-					$value = recursive_sanitize_text_field($value);
+					$value = $this->recursive_sanitize_text_field($value);
 				}
 				else {
 					$value = sanitize_text_field( $value );

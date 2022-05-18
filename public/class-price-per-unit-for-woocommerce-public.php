@@ -68,6 +68,8 @@ class Price_Per_Unit_For_Woocommerce_Public
             10,
             4
         );
+        //push cart data to order meta
+        add_action('woocommerce_checkout_create_order_line_item', [$this, 'push_cart_data_to_order'], 10, 4);
         add_filter('woocommerce_get_item_data', [$this, 'ranger_slider_point_display'], 10, 2);
         add_filter('woocommerce_get_price_html', [$this, 'ranger_slider_price_html_callback'], 10, 2);
         add_action(
@@ -112,11 +114,7 @@ class Price_Per_Unit_For_Woocommerce_Public
         }
         if ($status === 'active') {
             $html = __('Minimum Price', 'price-per-unit-for-woocommerce');
-            $html .= sprintf(
-                get_woocommerce_price_format(),
-                '<span class="woocommerce-Price-currencySymbol">' . ' ' . get_woocommerce_currency_symbol() . '</span>',
-                wc_price($price) 
-            );
+            $html .= wc_price($price) ;
             $sup = '';
             switch ($measurement) {
                 case 'v':
@@ -127,7 +125,7 @@ class Price_Per_Unit_For_Woocommerce_Public
                     break;
             }
 
-            $price_html = "<span class='amount'> $html $unit $sup</span>";
+            $price_html = "<span class='amount'> $html$unit $sup</span>";
         }
 
         return $price_html;
@@ -207,7 +205,7 @@ class Price_Per_Unit_For_Woocommerce_Public
             $min_x = $instance_meta['range_slider_min_value_x'];
             $max_x = $instance_meta['range_slider_max_value_x'];
             $title_x = $instance_meta['range_slider_title_value_for_x'];
-            $step_x = $instance_meta['range_slider_step_value_x'];
+            $step_x = is_numeric($instance_meta['range_slider_step_value_x']) ? $instance_meta['range_slider_step_value_x'] : 1;
             $x_labels_sorted = null;
 
             $x_dimension = [
@@ -247,7 +245,6 @@ class Price_Per_Unit_For_Woocommerce_Public
         } else {
             $data['range_slider'] = 'Slider Not Available';
         }
-
         return $data;
     }
 
@@ -301,7 +298,9 @@ class Price_Per_Unit_For_Woocommerce_Public
 
     public function save_cart_item_custom_meta_as_order_item_meta($item, $cart_item_key, $values, $order)
     {
-        if (isset($values['ranger_slider_min_x']) && isset($values['ranger_slider_max_x']) && isset($values['ranger_slider_min_y']) && isset($values['ranger_slider_max_y']) && isset($values['ranger_slider_min_z']) && isset($values['ranger_slider_max_z']) && isset($values['ranger_slider_unit']) && isset($values['ranger_slider_measurement'])) {
+        var_dump($item);
+        if (isset($values['ranger_slider_min_x']) && isset($values['ranger_slider_max_x']) 
+        && isset($values['ranger_slider_unit']) && isset($values['ranger_slider_measurement'])) {
             $item->update_meta_data(
                 'range_slider_data',
                 [
@@ -315,8 +314,58 @@ class Price_Per_Unit_For_Woocommerce_Public
         }
     }
 
+    public function push_cart_data_to_order($item, $cart_item_key, $cart_item, $order)
+    {
+        //		error_log( print_r( $cart_item, 1 ) );
+
+        $unit = '';
+        $measurement = '';
+     
+
+ 
+
+        if (isset($cart_item['ranger_slider_unit']) && !empty($cart_item['ranger_slider_unit'])) {
+            $raw_unit = $cart_item['ranger_slider_unit'];
+            $unit = $raw_unit;
+        }
+
+        if (isset($cart_item['ranger_slider_total_point']) && !empty($cart_item['ranger_slider_total_point'])) {
+            $item->add_meta_data(
+                __('Total', 'price-per-unit-for-woocommerce') . ' ' . $measurement,
+                wc_clean($cart_item['ranger_slider_total_point']) . $unit,
+                true
+            );
+        }
+
+        if (isset($cart_item['ranger_slider_max_x']) && !empty($cart_item['ranger_slider_max_x']) && isset($cart_item['x_title']) && !empty($cart_item['x_title'])) {
+            $item->add_meta_data(
+                $cart_item['x_title'],
+                $cart_item['ranger_slider_max_x'],
+                true
+            );
+        }
+
+        if (isset($cart_item['ranger_slider_max_y']) && !empty($cart_item['ranger_slider_max_y']) && isset($cart_item['y_title']) && !empty($cart_item['y_title'])) {
+            $item->add_meta_data(
+                $cart_item['y_title'],
+                $cart_item['ranger_slider_max_y'],
+                true
+            );
+        }
+
+        if (isset($cart_item['ranger_slider_max_z']) && !empty($cart_item['ranger_slider_max_z']) && isset($cart_item['z_title']) && !empty($cart_item['z_title'])) {
+            $item->add_meta_data(
+                $cart_item['z_title'],
+                $cart_item['ranger_slider_max_z'],
+                true
+            );
+        }
+    }
+
+
     public function set_cart_item_sale_price($cart)
     {
+        // pri_dump($cart);
         if (is_admin() && !defined('DOING_AJAX')) {
             return;
         }
@@ -328,8 +377,7 @@ class Price_Per_Unit_For_Woocommerce_Public
 
         // Iterate through each cart item
         foreach ($cart->get_cart() as $cart_item) {
-            //pri_dump( $cart_item );
-
+// 
             $get_price = $cart_item['data']->get_sale_price(); // get sale price
             $set_price = $this->calculate_price(
                 $cart_item['ranger_slider_min_x'],

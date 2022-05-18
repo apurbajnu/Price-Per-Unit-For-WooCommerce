@@ -3,7 +3,7 @@ Contributors: apurbajnu
 Donate link: https://apurba.me/donate
 Tags: Price, weight,legnth, area, woocommerce
 Requires at least: 4.0
-Tested up to: 5.8.1
+Tested up to: 5.9.3
 Stable tag: trunk
 Requires PHP: 7
 License: GPLv2 or later
@@ -67,6 +67,10 @@ Translatable.
 Fix small issues.
 1.3.1
 Fixed tranlation related issue
+1.3.2
+Fixed Jquery Ready issue
+Price display according to WooCommerce Currency options settings
+Fixed Nurmice View Decimal point increment
 
 == Installation ==
 
