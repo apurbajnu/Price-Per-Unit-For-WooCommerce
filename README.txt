@@ -71,6 +71,8 @@ Fixed tranlation related issue
 Fixed Jquery Ready issue
 Price display according to WooCommerce Currency options settings
 Fixed Nurmice View Decimal point increment
+1.3.3
+Fixed Order Data issue
 
 == Installation ==
 
