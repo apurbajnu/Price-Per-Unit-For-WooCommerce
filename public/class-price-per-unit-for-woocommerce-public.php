@@ -181,7 +181,7 @@ class Price_Per_Unit_For_Woocommerce_Public
             $unit = $value['range_slider_unit'];
             $status = $value['ranger_slider_status'];
             $measurement = $value['range_slider_measurement_type'];
-            $view = !array_key_exists('range_slider_view', (array)$value) && is_null($value['range_slider_view']) ? 'slider' : $value['range_slider_view'];
+            $view = isset($value['range_slider_view']) && !is_null($value['range_slider_view']) ? $value['range_slider_view'] : 'slider';
             if (array_key_exists('meta_info', $value)) {
                 $value = $value['meta_info'];
                 $encoded_val = json_decode(
@@ -753,7 +753,7 @@ class Price_Per_Unit_For_Woocommerce_Public
             true
         );
 
-        wp_localize_script($this->plugin_name, 'woo_currency_symbol', get_woocommerce_currency_symbol());
+        wp_localize_script($this->plugin_name, 'woo_currency_symbol', ['symbol' => get_woocommerce_currency_symbol()]);
         wp_localize_script(
             $this->plugin_name,
             'ranger_data',
