@@ -41,6 +41,15 @@ class Price_Per_Unit_For_Woocommerce_Admin
     private $version;
 
     /**
+     * The metabox instance.
+     *
+     * @since    1.4.0
+     * @access   private
+     * @var      Ap_custom_Metabox $metafield The metabox instance.
+     */
+    private $metafield;
+
+    /**
      * Initialize the class and set its properties.
      *
      * @since    1.0.0
@@ -52,13 +61,8 @@ class Price_Per_Unit_For_Woocommerce_Admin
     {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
-        $this->init();
-    }
-
-    public function init()
-    {
-        $this->metafield = new Ap_custom_Metabox();
-        $this->metafield->set_meta_fields($this->ranger_meta_field_settings());
+        // Delay metabox setup until init hook to avoid early translation loading
+        add_action('init', [$this, 'setup_metaboxes']);
         add_action('admin_menu', [$this, 'ppu_settings_page']);
         add_filter(
             'range_meta_boxes_pro_meta_info_ranger_slider_address',
@@ -66,6 +70,12 @@ class Price_Per_Unit_For_Woocommerce_Admin
             10,
             2
         );
+    }
+
+    public function setup_metaboxes()
+    {
+        $this->metafield = new Ap_custom_Metabox();
+        $this->metafield->set_meta_fields($this->ranger_meta_field_settings());
     }
 
     public function ranger_address_field_settings($option, $post)

@@ -2,10 +2,10 @@
 Contributors: apurbajnu
 Donate link: https://apurba.me/donate
 Tags: Price, weight,legnth, area, woocommerce
-Requires at least: 4.0
-Tested up to: 5.9.3
+Requires at least: 6.0
+Tested up to: 6.8
 Stable tag: trunk
-Requires PHP: 7
+Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 

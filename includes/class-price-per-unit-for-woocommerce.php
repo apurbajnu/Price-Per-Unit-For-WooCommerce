@@ -142,7 +142,7 @@ class Price_Per_Unit_For_Woocommerce {
 
 		$plugin_i18n = new Price_Per_Unit_For_Woocommerce_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action( 'init', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}
 

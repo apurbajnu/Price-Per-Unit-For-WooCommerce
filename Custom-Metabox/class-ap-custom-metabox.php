@@ -557,8 +557,8 @@ if ( ! class_exists( 'Ap_custom_Metabox' ) ):
 							$this->repeater_field_support( $input_value,
 								$input_repeater_childs,
 								$input['class'],
-								$input['label'],
-								$object );
+								$object,
+								$input['label'] );
 
 						}
 						?>
@@ -589,7 +589,7 @@ if ( ! class_exists( 'Ap_custom_Metabox' ) ):
 		 * @param $field_name
 		 */
 
-		function repeater_field_support( $value, $object, $parent_field_name, $parent_label = '', $post ) {
+		function repeater_field_support( $value, $object, $parent_field_name, $post = null, $parent_label = '' ) {
 			$repeatr_default = array();
 //            if(!$this->is_valid_json($value)){
 //                $value = '';

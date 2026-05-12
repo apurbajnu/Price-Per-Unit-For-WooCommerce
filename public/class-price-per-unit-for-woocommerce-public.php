@@ -296,9 +296,19 @@ class Price_Per_Unit_For_Woocommerce_Public
         return $item_data;
     }
 
+    /**
+     * Save cart item custom meta as order item meta.
+     *
+     * HPOS Compatible: Uses WC_Order_Item_Product::update_meta_data()
+     * which works with both legacy post-based orders and HPOS custom tables.
+     *
+     * @param WC_Order_Item_Product $item The order item.
+     * @param string $cart_item_key The cart item key.
+     * @param array $values The cart item values.
+     * @param WC_Order $order The order object.
+     */
     public function save_cart_item_custom_meta_as_order_item_meta($item, $cart_item_key, $values, $order)
     {
-        var_dump($item);
         if (isset($values['ranger_slider_min_x']) && isset($values['ranger_slider_max_x']) 
         && isset($values['ranger_slider_unit']) && isset($values['ranger_slider_measurement'])) {
             $item->update_meta_data(
@@ -314,10 +324,19 @@ class Price_Per_Unit_For_Woocommerce_Public
         }
     }
 
+    /**
+     * Push cart data to order item meta.
+     *
+     * HPOS Compatible: Uses WC_Order_Item_Product::add_meta_data()
+     * which works with both legacy post-based orders and HPOS custom tables.
+     *
+     * @param WC_Order_Item_Product $item The order item.
+     * @param string $cart_item_key The cart item key.
+     * @param array $cart_item The cart item data.
+     * @param WC_Order $order The order object.
+     */
     public function push_cart_data_to_order($item, $cart_item_key, $cart_item, $order)
     {
-        //		error_log( print_r( $cart_item, 1 ) );
-
         $unit = '';
         $measurement = '';
      

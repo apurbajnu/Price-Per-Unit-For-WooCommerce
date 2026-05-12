@@ -15,14 +15,16 @@
  * @wordpress-plugin
  * Plugin Name:       Price Per Unit
  * Plugin URI:        bestdecoders.com
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Sell products by measurement (weight, length, area, volume) with dynamic pricing. Supports slider and numeric input for WooCommerce.
  * Version:           1.3.3
  * Author:            Apurba
- * Author URI:        apurba.me gs
+ * Author URI:        apurba.me
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       price-per-unit-for-woocommerce
  * Domain Path:       /languages
+ * WC requires at least: 7.0
+ * WC tested up to: 9.0
  */
 
 // If this file is called directly, abort.
@@ -35,7 +37,7 @@ if (!defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('PRICE_PER_UNIT_FOR_WOOCOMMERCE_VERSION', '1.0.0');
+define('PRICE_PER_UNIT_FOR_WOOCOMMERCE_VERSION', '1.3.3');
 
 /**
  * The code that runs during plugin activation.
@@ -59,6 +61,22 @@ function deactivate_price_per_unit_for_woocommerce()
 
 register_activation_hook(__FILE__, 'activate_price_per_unit_for_woocommerce');
 register_deactivation_hook(__FILE__, 'deactivate_price_per_unit_for_woocommerce');
+
+/**
+ * Declare HPOS (High-Performance Order Storage) compatibility
+ *
+ * This plugin is compatible with WooCommerce's new custom order tables.
+ * Order item metadata is properly stored using WC CRUD methods.
+ */
+add_action('before_woocommerce_init', function() {
+    if (class_exists(\Automattic\WooCommerce\Utilities\FeaturesUtil::class)) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
+            'custom_order_tables',
+            __FILE__,
+            true
+        );
+    }
+});
 
 /**
  * The core plugin class that is used to define internationalization,
