@@ -19,14 +19,18 @@ This plugin allows you to sell your product depends on the unit
 ( Weight, length, area, and volume). You can change the price depends on the unit with this plugin. This plugin can help you to depict the price difference very clearly to your audience. 
 
 ### Basic Version Features
-* Support Multiple views ( Numeric and Slider)
-* More Visible with Pricing Slider
-* Price difference easily noticeable
-* Work With Weight/length basis
-* Price Info tab in the description
-* Easy to install
-* Touch Support for mobile device
-* Support Only Simple Products
+* Support Multiple views (Numeric and Slider)
+* Tiered pricing — different prices for different quantity ranges
+* Work with Weight, Length, Area, and Volume basis
+* Stock management per unit with WooCommerce integration
+* Stock validation — cap slider at stock level or show error on cart
+* Unit-aware availability text (e.g., "50 meters available")
+* Price Info tab in the product description
+* HPOS (High-Performance Order Storage) compatible
+* Touch support for mobile devices
+* Translation ready (WPML, Polylang, Loco Translate compatible)
+* Easy to install and configure
+* Supports Simple Products
 
 ### Pro Version Features
 * Support Multiple views ( Numeric and Slider)
@@ -54,7 +58,20 @@ To check the demo, Please Visit this link.
 
 If You Have Any Suggestions, let us know, please. [Feature Request](https://bestdecoders.com/contact-us/ "Your favorite software"). This way, you can help us to improve the plugin in every way.
 
-### Changelog 
+### Changelog
+1.4.0
+Fixed version constant mismatch (was 1.0.0, now matches plugin header)
+Added HPOS (High-Performance Order Storage) compatibility for WooCommerce
+Fixed undefined array key warning for range_slider_view
+Fixed wp_localize_script deprecated usage for currency symbol
+Removed leftover debug var_dump and error_log calls
+Fixed translation loading by moving textdomain to init hook
+Deferred metabox initialization to prevent early translation loading
+Fixed repeater_field_support parameter order in Custom Metabox
+Updated plugin description and author URI in header
+Fixed activator translation calls (removed __() from wp_die during activation)
+Raised minimum requirements: WordPress 6.0+, PHP 8.0+, WooCommerce 7.0+
+Tested up to WordPress 6.8 and WooCommerce 9.0
 1.1
 Fixed Major bug
 update settings panel

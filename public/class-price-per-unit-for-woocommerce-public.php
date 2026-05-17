@@ -89,6 +89,7 @@ class Price_Per_Unit_For_Woocommerce_Public
             'wp_ajax_nopriv_get_slider_value_for_simple_product',
             [$this, 'get_range_slider_value_on_simple_product']
         );
+        add_filter('woocommerce_get_availability_text', [$this, 'add_unit_to_availability_text'], 10, 2);
     }
 
     public function ranger_slider_price_html_callback($price_html, $product)
@@ -231,6 +232,11 @@ class Price_Per_Unit_For_Woocommerce_Public
                 '<span class="woocommerce-Price-currencySymbol">' . get_woocommerce_currency_symbol() . '</span>',
                 'given_price'
             );
+
+            // Get stock quantity and validation mode
+            $stockQuantity = $product->get_stock_quantity();
+            $validationMode = get_post_meta($product_id, 'ppu_stock_validation_mode', true);
+
             $data['range_slider'] = [
                 'dimension' => $dimension,
                 'unit' => $unit,
@@ -241,6 +247,8 @@ class Price_Per_Unit_For_Woocommerce_Public
                 'status' => $status,
                 'view' => $view, //slider,numeric
                 'woo_price' => '<span class="ppu-price-format">' . $woo_price_format . '</span>',
+                'stock' => $stockQuantity,
+                'validation_mode' => $validationMode ?: 'cap_at_stock',
             ];
         } else {
             $data['range_slider'] = 'Slider Not Available';
@@ -772,5 +780,33 @@ class Price_Per_Unit_For_Woocommerce_Public
                 ]
             ]
         );
+    }
+
+    /**
+     * Add unit label to availability text
+     *
+     * @since    1.4.0
+     * @param    string $text The availability text.
+     * @param    WC_Product $product The product object.
+     * @return   string Modified availability text.
+     */
+    public function add_unit_to_availability_text($text, $product)
+    {
+        $unit = get_post_meta($product->get_id(), 'ppu_unit_label', true);
+        if (!$unit) {
+            return $text;
+        }
+
+        $stock = $product->get_stock_quantity();
+
+        if ($product->is_in_stock() && $stock > 0) {
+            return sprintf(
+                __('%s %s available', 'price-per-unit-for-woocommerce'),
+                $stock,
+                $unit
+            );
+        }
+
+        return $text;
     }
 }

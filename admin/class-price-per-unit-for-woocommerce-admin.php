@@ -64,6 +64,8 @@ class Price_Per_Unit_For_Woocommerce_Admin
         // Delay metabox setup until init hook to avoid early translation loading
         add_action('init', [$this, 'setup_metaboxes']);
         add_action('admin_menu', [$this, 'ppu_settings_page']);
+        add_action('save_post_product', [$this, 'sync_unit_label'], 5, 1);
+        add_action('save_post_product', [$this, 'sync_stock_to_woocommerce'], 10, 1);
         add_filter(
             'range_meta_boxes_pro_meta_info_ranger_slider_address',
             [$this, 'ranger_address_field_settings'],
@@ -162,6 +164,34 @@ class Price_Per_Unit_For_Woocommerce_Admin
                         'label' => 'Slider View',
                         'input_option' => ['slider' => __('Slider', 'price-per-unit-for-woocommerce'), 'numeric' => __('Numeric', 'price-per-unit-for-woocommerce')],
 
+                    ],
+
+                    [
+                        'name' => 'ppu_stock_quantity',
+                        'type' => 'text',
+                        'label' => __('Stock Quantity', 'price-per-unit-for-woocommerce'),
+                        'placeholder' => __('e.g., 100', 'price-per-unit-for-woocommerce'),
+                        'value' => '',
+                        'description' => __('Enter the available stock in the selected unit.', 'price-per-unit-for-woocommerce'),
+                    ],
+
+                    [
+                        'name' => 'ppu_stock_validation_mode',
+                        'type' => 'select',
+                        'label' => __('Stock Validation', 'price-per-unit-for-woocommerce'),
+                        'input_option' => [
+                            'cap_at_stock' => __('Cap slider at stock level', 'price-per-unit-for-woocommerce'),
+                            'validate_on_cart' => __('Allow over-selection, show error on add-to-cart', 'price-per-unit-for-woocommerce'),
+                        ],
+                        'description' => __('How should the slider behave when stock is limited?', 'price-per-unit-for-woocommerce'),
+                    ],
+
+                    [
+                        'name' => 'ppu_unit_label',
+                        'type' => 'text',
+                        'label' => __('Stock Unit Label', 'price-per-unit-for-woocommerce'),
+                        'readonly' => true,
+                        'description' => __('Automatically set from the Unit field above.', 'price-per-unit-for-woocommerce'),
                     ],
 
                     [
@@ -307,5 +337,55 @@ class Price_Per_Unit_For_Woocommerce_Admin
             $this->version,
             false
         );
+    }
+
+    /**
+     * Sync unit label from range_slider_unit to ppu_unit_label
+     *
+     * @since    1.4.0
+     * @param    int $product_id The product ID.
+     */
+    public function sync_unit_label($product_id)
+    {
+        // Skip auto-saves and revisions
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+        if (wp_is_post_revision($product_id)) {
+            return;
+        }
+
+        $value = get_post_meta($product_id, 'range_meta_boxes_pro', true);
+        if (is_array($value) && isset($value['range_slider_unit'])) {
+            update_post_meta($product_id, 'ppu_unit_label', sanitize_text_field($value['range_slider_unit']));
+        }
+    }
+
+    /**
+     * Sync stock quantity to WooCommerce native stock management
+     *
+     * @since    1.4.0
+     * @param    int $product_id The product ID.
+     */
+    public function sync_stock_to_woocommerce($product_id)
+    {
+        // Skip auto-saves and revisions
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+        if (wp_is_post_revision($product_id)) {
+            return;
+        }
+
+        $ppu_stock = get_post_meta($product_id, 'ppu_stock_quantity', true);
+        $status = get_post_meta($product_id, 'range_meta_boxes_pro', true);
+        $slider_active = isset($status['ranger_slider_status']) && $status['ranger_slider_status'] === 'active';
+
+        // Only manage stock if PPU is active and stock value is set
+        if ($slider_active && $ppu_stock !== '' && $ppu_stock !== false) {
+            update_post_meta($product_id, '_stock', floatval($ppu_stock));
+            update_post_meta($product_id, '_manage_stock', 'yes');
+            update_post_meta($product_id, '_stock_status', 'instock');
+        }
     }
 }

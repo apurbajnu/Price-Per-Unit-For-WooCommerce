@@ -32,16 +32,27 @@
               var defaultObject = Object.assign({}, defaultRangerObject);
               var numberLength = givenObject.max;
               numberLength = numberLength.toString().length;
+
+              // Cap slider max at stock if validation mode is cap_at_stock
+              var effectiveMax = givenObject.max;
+              if (data.range_slider.stock !== null && data.range_slider.validation_mode === 'cap_at_stock') {
+                effectiveMax = Math.min(parseFloat(givenObject.max), parseFloat(data.range_slider.stock));
+                // Ensure minimum is still valid
+                if (effectiveMax < parseFloat(givenObject.min)) {
+                  effectiveMax = parseFloat(givenObject.min);
+                }
+              }
+
               if (numberLength < 4) {
                 defaultObject.grid = true;
               } else {
-                var divider = findDiveder(givenObject.max, givenObject.step),
+                var divider = findDiveder(effectiveMax, givenObject.step),
                   dividerDouble = divider * 2;
   
                 marks[givenObject.min] = givenObject.min;
                 marks[divider] = divider;
                 marks[dividerDouble] = dividerDouble;
-                marks[givenObject.max] = givenObject.max;
+                marks[effectiveMax] = effectiveMax;
                 defaultObject.grid = false;
                 defaultObject.onStart = function (data) {
                   addMarks(data.slider, marks);
@@ -54,7 +65,7 @@
   
               var object = $.extend(defaultObject, {
                 min: givenObject.min,
-                max: givenObject.max,
+                max: effectiveMax,
                 from: givenObject.min,
                 step: givenObject.step,
               });

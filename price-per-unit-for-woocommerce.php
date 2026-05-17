@@ -16,13 +16,14 @@
  * Plugin Name:       Price Per Unit
  * Plugin URI:        bestdecoders.com
  * Description:       Sell products by measurement (weight, length, area, volume) with dynamic pricing. Supports slider and numeric input for WooCommerce.
- * Version:           1.3.3
+ * Version:           1.4.0
  * Author:            Apurba
  * Author URI:        apurba.me
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       price-per-unit-for-woocommerce
  * Domain Path:       /languages
+ * Requires PHP: 8.0
  * WC requires at least: 7.0
  * WC tested up to: 9.0
  */
@@ -37,7 +38,7 @@ if (!defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('PRICE_PER_UNIT_FOR_WOOCOMMERCE_VERSION', '1.3.3');
+define('PRICE_PER_UNIT_FOR_WOOCOMMERCE_VERSION', '1.4.0');
 
 /**
  * The code that runs during plugin activation.
